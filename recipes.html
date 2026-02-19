@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이유식 레시피 모음 - 월령별 육아 가이드</title>
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --bg: #FFF9F0;
+      --card-bg: #FFFFFF;
+      --text: #2D3436;
+      --text-light: #636E72;
+      --border: #E2E8F0;
+      --early: #FF9F43;
+      --mid: #00B894;
+      --late: #6C5CE7;
+      --complete: #E84393;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #FF9F43 0%, #EE5A24 50%, #E84393 100%);
+      color: white;
+      text-align: center;
+      padding: 50px 20px 70px;
+      position: relative;
+    }
+    .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 6px; }
+    .header p { font-size: 1rem; opacity: 0.9; }
+    .header .back-link {
+      position: absolute; top: 20px; left: 20px;
+      color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px;
+      transition: background 0.2s;
+    }
+    .header .back-link:hover { background: rgba(255,255,255,0.35); }
+    .header-wave {
+      position: absolute; bottom: -1px; left: 0; width: 100%;
+      fill: var(--bg);
+    }
+
+    /* Nav */
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,249,240,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; gap: 6px;
+      max-width: 900px; margin: 0 auto;
+      padding: 12px 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 8px 20px; border-radius: 20px;
+      text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      color: var(--text-light); background: white;
+      border: 2px solid var(--border);
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .nav a[href="#early"]:hover, .nav a[href="#early"].active { background: var(--early); color: white; border-color: var(--early); }
+    .nav a[href="#mid"]:hover, .nav a[href="#mid"].active { background: var(--mid); color: white; border-color: var(--mid); }
+    .nav a[href="#late"]:hover, .nav a[href="#late"].active { background: var(--late); color: white; border-color: var(--late); }
+    .nav a[href="#complete"]:hover, .nav a[href="#complete"].active { background: var(--complete); color: white; border-color: var(--complete); }
+    .nav a[href="#tips"]:hover, .nav a[href="#tips"].active { background: var(--text); color: white; border-color: var(--text); }
+
+    /* Content */
+    .content { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+    /* Stage Section */
+    .stage-section {
+      margin-bottom: 50px;
+      scroll-margin-top: 80px;
+    }
+    .stage-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 8px;
+    }
+    .stage-badge {
+      padding: 6px 18px; border-radius: 20px;
+      color: white; font-weight: 700; font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .stage-header h2 { font-size: 1.5rem; font-weight: 800; }
+    .stage-meta {
+      font-size: 0.9rem; color: var(--text-light);
+      margin-bottom: 20px; padding-left: 2px;
+    }
+
+    /* Info bar */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .info-item {
+      background: var(--card-bg); border-radius: 12px;
+      padding: 12px 16px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .info-item .label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; text-transform: uppercase; }
+    .info-item .value { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
+
+    /* Recipe card */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+    }
+    .recipe-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .recipe-card:hover { transform: translateY(-3px); }
+    .recipe-card-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .recipe-card-header h3 {
+      font-size: 1.05rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .recipe-card-header .difficulty {
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 10px;
+      background: #E8F5E9; color: #2E7D32;
+    }
+    .recipe-card-header .difficulty.medium { background: #FFF3E0; color: #E65100; }
+    .recipe-card-body { padding: 14px 20px 18px; }
+    .recipe-section-title {
+      font-size: 0.78rem; font-weight: 700; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 6px; margin-top: 10px;
+    }
+    .recipe-section-title:first-child { margin-top: 0; }
+    .recipe-card-body ul {
+      list-style: none; padding: 0;
+    }
+    .recipe-card-body li {
+      font-size: 0.88rem; padding: 2px 0;
+      padding-left: 16px; position: relative;
+    }
+    .recipe-card-body li::before {
+      content: ''; position: absolute;
+      left: 0; top: 11px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .recipe-card-body .ingredients li::before { background: var(--early); }
+    .recipe-card-body .steps { counter-reset: step; }
+    .recipe-card-body .steps li {
+      padding-left: 24px; padding-top: 3px; padding-bottom: 3px;
+    }
+    .recipe-card-body .steps li::before {
+      content: counter(step); counter-increment: step;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text);
+      font-size: 0.68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      top: 7px;
+    }
+    .recipe-card .tip-note {
+      background: #FFF8E1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      margin-top: 10px;
+      color: #F57F17;
+      line-height: 1.6;
+    }
+    .recipe-card .amount-info {
+      font-size: 0.8rem; color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    /* Tips section */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .tip-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--early);
+    }
+    .tip-card h3 {
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .tip-card ul { list-style: none; padding: 0; }
+    .tip-card li {
+      font-size: 0.88rem; padding: 4px 0;
+      padding-left: 18px; position: relative;
+    }
+    .tip-card li::before {
+      content: ''; position: absolute;
+      left: 0; top: 12px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--early);
+    }
+
+    /* Ingredient table */
+    .ingredient-timeline {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+      margin-bottom: 30px;
+      padding: 4px;
+    }
+    .ing-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.82rem; min-width: 600px;
+    }
+    .ing-table th {
+      padding: 10px 8px; font-weight: 600;
+      text-align: left; border-bottom: 2px solid var(--border);
+      background: #FFF9F0;
+    }
+    .ing-table td {
+      padding: 8px; border-bottom: 1px solid var(--border);
+    }
+    .ing-table td:first-child { font-weight: 600; min-width: 100px; }
+    .ing-table .ok { color: #27AE60; font-weight: 600; }
+    .ing-table .caution { color: #F39C12; font-weight: 600; }
+    .ing-table .no { color: #E74C3C; font-weight: 600; }
+
+    /* Footer */
+    .footer {
+      text-align: center; padding: 30px 20px;
+      color: var(--text-light); font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      max-width: 900px; margin: 0 auto;
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .header { padding: 40px 16px 60px; }
+      .header h1 { font-size: 1.7rem; }
+      .header .back-link { top: 12px; left: 12px; font-size: 0.82rem; }
+      .recipe-grid { grid-template-columns: 1fr; }
+      .info-bar { grid-template-columns: repeat(2, 1fr); }
+      .tips-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back-link">&larr; 메인으로</a>
+  <h1>이유식 레시피 모음</h1>
+  <p>초기 / 중기 / 후기 / 완료기 단계별 레시피와 식재료 가이드</p>
+  <svg class="header-wave" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,40 C360,80 720,0 1440,40 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <a href="#early">초기 (5~6개월)</a>
+    <a href="#mid">중기 (7~8개월)</a>
+    <a href="#late">후기 (9~11개월)</a>
+    <a href="#complete">완료기 (12개월~)</a>
+    <a href="#tips">이유식 꿀팁</a>
+  </div>
+</div>
+
+<!-- Ingredient Timeline -->
+<div class="content">
+
+  <div class="ingredient-timeline">
+    <table class="ing-table">
+      <thead>
+        <tr>
+          <th>식재료</th>
+          <th>초기 (5~6M)</th>
+          <th>중기 (7~8M)</th>
+          <th>후기 (9~11M)</th>
+          <th>완료기 (12M+)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>쌀/곡류</td><td class="ok">O 미음</td><td class="ok">O 죽</td><td class="ok">O 무른밥</td><td class="ok">O 진밥</td></tr>
+        <tr><td>애호박/감자/고구마</td><td class="ok">O 곱게 갈기</td><td class="ok">O 다지기</td><td class="ok">O 잘게 썰기</td><td class="ok">O 먹기 좋게</td></tr>
+        <tr><td>당근/브로콜리</td><td class="ok">O 곱게 갈기</td><td class="ok">O 다지기</td><td class="ok">O 잘게 썰기</td><td class="ok">O 먹기 좋게</td></tr>
+        <tr><td>소고기</td><td class="caution">6M+ 곱게 갈기</td><td class="ok">O 다지기</td><td class="ok">O 잘게 썰기</td><td class="ok">O 먹기 좋게</td></tr>
+        <tr><td>닭고기</td><td class="no">X</td><td class="ok">O 다지기</td><td class="ok">O 잘게 썰기</td><td class="ok">O 먹기 좋게</td></tr>
+        <tr><td>돼지고기</td><td class="no">X</td><td class="no">X</td><td class="ok">O 다지기</td><td class="ok">O 먹기 좋게</td></tr>
+        <tr><td>달걀 노른자</td><td class="no">X</td><td class="caution">7M+ 완숙</td><td class="ok">O</td><td class="ok">O</td></tr>
+        <tr><td>달걀 흰자</td><td class="no">X</td><td class="no">X</td><td class="caution">9M+ 소량</td><td class="ok">O</td></tr>
+        <tr><td>흰살생선</td><td class="no">X</td><td class="caution">7M+ 소량</td><td class="ok">O</td><td class="ok">O</td></tr>
+        <tr><td>등푸른생선</td><td class="no">X</td><td class="no">X</td><td class="no">X</td><td class="caution">12M+ 소량</td></tr>
+        <tr><td>새우/조개</td><td class="no">X</td><td class="no">X</td><td class="no">X</td><td class="caution">12M+ 소량</td></tr>
+        <tr><td>두부</td><td class="no">X</td><td class="ok">O 으깨기</td><td class="ok">O 잘게</td><td class="ok">O</td></tr>
+        <tr><td>요거트/치즈</td><td class="no">X</td><td class="no">X</td><td class="caution">9M+ 무첨가</td><td class="ok">O</td></tr>
+        <tr><td>생우유</td><td class="no">X</td><td class="no">X</td><td class="no">X</td><td class="ok">O 12M+</td></tr>
+        <tr><td>꿀</td><td class="no">X 보툴리눔 위험</td><td class="no">X</td><td class="no">X</td><td class="caution">12M+ 가능</td></tr>
+        <tr><td>견과류</td><td class="no">X</td><td class="no">X</td><td class="no">X</td><td class="caution">곱게 갈아서</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 초기 이유식 ==================== -->
+  <div class="stage-section" id="early">
+    <div class="stage-header">
+      <span class="stage-badge" style="background:var(--early);">초기</span>
+      <h2>초기 이유식 (5~6개월)</h2>
+    </div>
+    <p class="stage-meta">미음 형태 / 재료를 곱게 갈아 체에 거름 / 새 재료 3~5일 간격 추가</p>
+
+    <div class="info-bar">
+      <div class="info-item"><div class="label">횟수</div><div class="value">하루 1회</div></div>
+      <div class="info-item"><div class="label">1회 양</div><div class="value">30~80ml</div></div>
+      <div class="info-item"><div class="label">농도</div><div class="value">미음 (물처럼)</div></div>
+      <div class="info-item"><div class="label">곡물:물</div><div class="value">1:10 (10배죽)</div></div>
+    </div>
+
+    <div class="recipe-grid">
+      <!-- 쌀미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>쌀미음 (첫 이유식) <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (약 50ml)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 15g (1큰술)</li>
+            <li>물 150ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>쌀을 30분 이상 물에 불린다</li>
+            <li>불린 쌀 + 물 50ml을 믹서에 곱게 간다</li>
+            <li>냄비에 갈은 쌀 + 나머지 물을 넣고 센 불로 끓인다</li>
+            <li>끓어오르면 중약불로 줄여 7~8분 저으며 끓인다</li>
+            <li>체에 한 번 걸러 알갱이를 제거한다</li>
+          </ul>
+          <div class="tip-note">첫 이유식은 쌀미음이 가장 안전합니다. 3일간 같은 것만 먹인 후 반응이 없으면 다음 재료를 추가하세요.</div>
+        </div>
+      </div>
+
+      <!-- 고구마미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>고구마 미음 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>고구마 20g</li>
+            <li>불린 쌀 10g</li>
+            <li>물 150ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>고구마를 껍질 벗겨 잘게 썬다</li>
+            <li>고구마를 10분간 쪄서 부드럽게 만든다</li>
+            <li>불린 쌀 + 고구마 + 물을 믹서에 곱게 간다</li>
+            <li>냄비에 넣고 중약불에서 저으며 5~7분 끓인다</li>
+            <li>체에 걸러 완성한다</li>
+          </ul>
+          <div class="tip-note">고구마는 단맛이 있어 아기들이 잘 먹습니다. 변비에도 도움이 됩니다.</div>
+        </div>
+      </div>
+
+      <!-- 애호박미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>애호박 미음 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>애호박 20g (껍질+씨 제거)</li>
+            <li>불린 쌀 10g</li>
+            <li>물 150ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>애호박 껍질을 벗기고 씨를 제거한다</li>
+            <li>잘게 썰어 5분간 쪄서 익힌다</li>
+            <li>불린 쌀 + 익힌 애호박 + 물을 믹서에 간다</li>
+            <li>냄비에서 중약불로 5~7분 저으며 끓인다</li>
+            <li>체에 걸러 완성한다</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 소고기미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 미음 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (6개월 이후)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>소고기 안심/우둔살 10g</li>
+            <li>불린 쌀 15g</li>
+            <li>물 200ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>소고기를 찬물에 30분 담가 핏물을 뺀다</li>
+            <li>끓는 물에 소고기를 5분간 삶아 익힌다</li>
+            <li>익힌 소고기 + 불린 쌀 + 물을 믹서에 곱게 간다</li>
+            <li>냄비에서 중약불로 7~8분 저으며 끓인다</li>
+            <li>체에 걸러 알갱이를 제거한다</li>
+          </ul>
+          <div class="tip-note">소고기는 철분 보충에 필수! 6개월부터 꼭 시작하세요. 기름기 없는 부위(안심, 우둔)를 사용합니다.</div>
+        </div>
+      </div>
+
+      <!-- 브로콜리미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>브로콜리 감자 미음 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>브로콜리 줄기 15g (꽃 부분은 후기부터)</li>
+            <li>감자 10g</li>
+            <li>불린 쌀 10g</li>
+            <li>물 150ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>브로콜리 줄기 껍질을 벗기고 잘게 썬다</li>
+            <li>감자 껍질 벗기고 잘게 썬다</li>
+            <li>브로콜리, 감자를 7분간 쪄서 익힌다</li>
+            <li>불린 쌀과 함께 믹서에 곱게 간다</li>
+            <li>냄비에서 중약불로 5~7분 저으며 끓인 후 체에 거른다</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 사과배미음 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>사과 미음 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>사과 20g (껍질 제거)</li>
+            <li>불린 쌀 10g</li>
+            <li>물 150ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>사과 껍질을 벗기고 씨를 제거한 후 잘게 썬다</li>
+            <li>사과를 5분간 쪄서 부드럽게 만든다</li>
+            <li>불린 쌀 + 익힌 사과 + 물을 믹서에 간다</li>
+            <li>냄비에서 중약불로 5분 끓인다</li>
+            <li>체에 걸러 완성한다</li>
+          </ul>
+          <div class="tip-note">과일은 반드시 익혀서 주세요. 생과일은 7개월 이후부터 소량 가능합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 중기 이유식 ==================== -->
+  <div class="stage-section" id="mid">
+    <div class="stage-header">
+      <span class="stage-badge" style="background:var(--mid);">중기</span>
+      <h2>중기 이유식 (7~8개월)</h2>
+    </div>
+    <p class="stage-meta">입자감이 느껴지는 죽 / 재료를 잘게 다짐 / 6가지 식품군 골고루</p>
+
+    <div class="info-bar">
+      <div class="info-item"><div class="label">횟수</div><div class="value">하루 2회</div></div>
+      <div class="info-item"><div class="label">1회 양</div><div class="value">80~120ml</div></div>
+      <div class="info-item"><div class="label">농도</div><div class="value">묽은 죽 (으깬 감자)</div></div>
+      <div class="info-item"><div class="label">곡물:물</div><div class="value">1:5~7 (5~7배죽)</div></div>
+    </div>
+
+    <div class="recipe-grid">
+      <!-- 소고기 야채죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 당근 죽 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>소고기 다짐 15g</li>
+            <li>당근 10g (잘게 다짐)</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>소고기를 끓는 물에 살짝 데쳐 핏물을 뺀다</li>
+            <li>소고기, 당근을 잘게 다진다 (2~3mm)</li>
+            <li>냄비에 물, 불린 쌀을 넣고 센 불로 끓인다</li>
+            <li>끓으면 다진 소고기, 당근을 넣고 중약불로 줄인다</li>
+            <li>10~12분 저으며 끓여 완성한다</li>
+          </ul>
+          <div class="tip-note">소고기큐브를 미리 만들어 냉동해두면 편합니다. 1회분 10~15g씩 얼려두세요.</div>
+        </div>
+      </div>
+
+      <!-- 닭가슴살 채소죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>닭가슴살 양배추 죽 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>닭가슴살 15g</li>
+            <li>양배추 10g (잘게 다짐)</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>닭가슴살을 끓는 물에 10분 삶아 잘게 찢는다</li>
+            <li>양배추를 부드럽게 데쳐 잘게 다진다</li>
+            <li>불린 쌀 + 물을 냄비에 넣고 끓인다</li>
+            <li>끓으면 닭가슴살, 양배추를 넣고 중약불로 10분 끓인다</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 두부 시금치죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>두부 시금치 죽 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>연두부 15g</li>
+            <li>시금치 잎 10g</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>시금치를 끓는 물에 살짝 데쳐 잘게 다진다</li>
+            <li>연두부를 으깬다</li>
+            <li>불린 쌀 + 물을 냄비에서 끓인다</li>
+            <li>끓으면 두부, 시금치를 넣고 중약불로 8분 끓인다</li>
+          </ul>
+          <div class="tip-note">시금치는 끓는 물에 데쳐 옥살산을 제거한 후 사용하세요.</div>
+        </div>
+      </div>
+
+      <!-- 달걀노른자 야채죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>달걀 노른자 단호박 죽 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (7개월 이후)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>삶은 달걀 노른자 1/2개</li>
+            <li>단호박 15g</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>달걀을 완숙으로 삶아 노른자만 분리한다</li>
+            <li>단호박을 껍질 벗겨 쪄서 으깬다</li>
+            <li>불린 쌀 + 물을 냄비에서 끓인다</li>
+            <li>끓으면 단호박과 으깬 노른자를 넣고 중약불로 8분 끓인다</li>
+          </ul>
+          <div class="tip-note">달걀 노른자는 반드시 완숙으로! 처음엔 1/4개부터 시작하여 반응을 확인하세요.</div>
+        </div>
+      </div>
+
+      <!-- 흰살생선 야채죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>대구살 감자 죽 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>대구살 15g (뼈 완전 제거)</li>
+            <li>감자 10g</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>대구살의 뼈와 가시를 꼼꼼히 제거한다</li>
+            <li>대구살을 끓는 물에 5분간 삶아 잘게 다진다</li>
+            <li>감자를 껍질 벗겨 쪄서 으깬다</li>
+            <li>불린 쌀 + 물을 냄비에서 끓인 후 대구살, 감자를 넣고 8분 끓인다</li>
+          </ul>
+          <div class="tip-note">생선은 뼈를 완벽히 제거해야 합니다. 손가락으로 꼼꼼히 확인하세요.</div>
+        </div>
+      </div>
+
+      <!-- 미역죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 미역 죽 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>불린 쌀 30g</li>
+            <li>소고기 다짐 10g</li>
+            <li>불린 미역 5g (잘게 다짐)</li>
+            <li>참기름 약간</li>
+            <li>물 180ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>미역을 물에 불려 잘게 다진다</li>
+            <li>냄비에 참기름을 두르고 소고기를 볶는다</li>
+            <li>다진 미역을 넣고 함께 볶는다</li>
+            <li>불린 쌀 + 물을 넣고 중약불에서 10~12분 끓인다</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 후기 이유식 ==================== -->
+  <div class="stage-section" id="late">
+    <div class="stage-header">
+      <span class="stage-badge" style="background:var(--late);">후기</span>
+      <h2>후기 이유식 (9~11개월)</h2>
+    </div>
+    <p class="stage-meta">무른밥/덩어리죽 / 씹는 연습 시작 / 핑거푸드 병행</p>
+
+    <div class="info-bar">
+      <div class="info-item"><div class="label">횟수</div><div class="value">하루 3회</div></div>
+      <div class="info-item"><div class="label">1회 양</div><div class="value">120~150ml</div></div>
+      <div class="info-item"><div class="label">농도</div><div class="value">무른밥 (잇몸으로 으깨기)</div></div>
+      <div class="info-item"><div class="label">곡물:물</div><div class="value">1:3~4 (3~4배죽)</div></div>
+    </div>
+
+    <div class="recipe-grid">
+      <!-- 소고기야채 무른밥 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 야채 무른밥 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>밥 80g (무르게 지은 것)</li>
+            <li>소고기 다짐 20g</li>
+            <li>애호박 15g, 당근 10g (5mm 다짐)</li>
+            <li>참기름 약간</li>
+            <li>물 100ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>소고기를 참기름에 살짝 볶는다</li>
+            <li>다진 야채를 넣고 함께 볶는다</li>
+            <li>무른밥 + 물을 넣고 5~7분 끓인다</li>
+            <li>밥알이 퍼지면서 적당한 농도가 되면 완성</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 달걀찜 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>부드러운 달걀찜 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (9개월 이후, 흰자 테스트 완료)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>달걀 1개</li>
+            <li>물 또는 육수 60ml</li>
+            <li>당근 5g (곱게 다짐)</li>
+            <li>애호박 5g (곱게 다짐)</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>달걀을 풀어 체에 한 번 거른다</li>
+            <li>물(육수)과 다진 야채를 섞는다</li>
+            <li>내열 그릇에 담아 랩을 씌우고 포크로 구멍을 낸다</li>
+            <li>끓는 물 위 찜기에서 중약불로 12~15분 찐다</li>
+          </ul>
+          <div class="tip-note">달걀찜은 부드러워서 아기가 잘 먹습니다. 흰자 알레르기가 없는지 먼저 확인하세요.</div>
+        </div>
+      </div>
+
+      <!-- 연어 야채 무른밥 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>연어 브로콜리 무른밥 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>밥 80g</li>
+            <li>생연어 20g (뼈 제거)</li>
+            <li>브로콜리 15g (꽃 부분, 잘게 다짐)</li>
+            <li>물 100ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>연어를 끓는 물에 삶아 뼈를 제거하고 잘게 다진다</li>
+            <li>브로콜리를 데쳐서 잘게 다진다</li>
+            <li>무른밥 + 물을 냄비에 넣고 끓인다</li>
+            <li>연어, 브로콜리를 넣고 5분 더 끓인다</li>
+          </ul>
+          <div class="tip-note">연어는 오메가3가 풍부합니다. 꼭 완전히 익혀서 주세요.</div>
+        </div>
+      </div>
+
+      <!-- 핑거푸드 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>감자 치즈볼 (핑거푸드) <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">4~5개 분량</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>감자 1/2개 (약 50g)</li>
+            <li>아기치즈 1/2장</li>
+            <li>브로콜리 10g (잘게 다짐, 선택)</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>감자를 쪄서 부드럽게 으깬다</li>
+            <li>아기치즈를 잘게 찢어 넣고 섞는다</li>
+            <li>데친 브로콜리를 잘게 다져 섞는다</li>
+            <li>한입 크기로 동글동글 빚는다</li>
+          </ul>
+          <div class="tip-note">핑거푸드는 잇몸으로 으깰 수 있는 부드러운 경도가 적당합니다. 너무 크지 않게 만드세요.</div>
+        </div>
+      </div>
+
+      <!-- 돼지고기 야채죽 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>돼지고기 파프리카 무른밥 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>밥 80g</li>
+            <li>돼지고기 안심 20g</li>
+            <li>빨강 파프리카 10g (잘게 다짐)</li>
+            <li>양파 5g (잘게 다짐)</li>
+            <li>참기름 약간, 물 100ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>돼지고기를 삶아 잘게 다진다</li>
+            <li>참기름에 돼지고기를 볶고, 야채를 넣어 함께 볶는다</li>
+            <li>무른밥 + 물을 넣고 중약불에서 5~7분 끓인다</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 요거트 과일 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>바나나 요거트 (간식) <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (9개월 이후)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>플레인 요거트 50g (무첨가)</li>
+            <li>바나나 1/3개 (으깨기)</li>
+            <li>블루베리 3~4개 (으깨기, 선택)</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>바나나를 포크로 곱게 으깬다</li>
+            <li>블루베리를 반으로 잘라 으깬다</li>
+            <li>플레인 요거트와 골고루 섞는다</li>
+          </ul>
+          <div class="tip-note">요거트는 반드시 무첨가 플레인으로! 설탕이나 꿀이 들어간 제품은 피하세요.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 완료기 이유식 ==================== -->
+  <div class="stage-section" id="complete">
+    <div class="stage-header">
+      <span class="stage-badge" style="background:var(--complete);">완료기</span>
+      <h2>완료기 이유식 (12개월~)</h2>
+    </div>
+    <p class="stage-meta">진밥~일반밥 / 가족 식사와 함께 / 유아식으로 전환</p>
+
+    <div class="info-bar">
+      <div class="info-item"><div class="label">횟수</div><div class="value">하루 3끼 + 간식 2회</div></div>
+      <div class="info-item"><div class="label">1회 양</div><div class="value">150~200ml</div></div>
+      <div class="info-item"><div class="label">농도</div><div class="value">진밥~일반밥</div></div>
+      <div class="info-item"><div class="label">간</div><div class="value">어른의 1/3 수준</div></div>
+    </div>
+
+    <div class="recipe-grid">
+      <!-- 소고기 야채 볶음밥 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 야채 볶음밥 <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>밥 100g</li>
+            <li>소고기 다짐 25g</li>
+            <li>양파 10g, 당근 10g, 애호박 10g (7mm 다짐)</li>
+            <li>달걀 1/2개, 참기름 약간</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>야채를 모두 7mm 크기로 다진다</li>
+            <li>참기름에 소고기를 볶다가 야채를 넣고 볶는다</li>
+            <li>밥을 넣고 골고루 볶는다</li>
+            <li>달걀을 풀어 넣고 스크램블하며 볶아 완성한다</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 닭고기 수프 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>닭고기 야채 수프 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">2~3회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>닭다리살 50g</li>
+            <li>감자 30g, 양파 20g, 당근 15g (1cm 다짐)</li>
+            <li>버터 약간, 물 300ml</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>닭다리살을 삶아 1cm 크기로 썬다 (육수 보관)</li>
+            <li>버터에 양파를 볶다가 당근, 감자를 넣고 볶는다</li>
+            <li>닭육수를 넣고 야채가 부드러워질 때까지 10분 끓인다</li>
+            <li>닭고기를 넣고 3분 더 끓인다</li>
+          </ul>
+          <div class="tip-note">남은 건 소분하여 냉동 보관 가능합니다 (3일 이내 섭취 권장).</div>
+        </div>
+      </div>
+
+      <!-- 고등어 구이 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>고등어 야채찜 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준 (12개월 이후)</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>고등어 순살 30g</li>
+            <li>애호박 15g, 양파 10g</li>
+            <li>두부 15g</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>고등어 순살의 뼈와 가시를 완벽히 제거한다</li>
+            <li>야채와 두부를 먹기 좋게 썬다</li>
+            <li>찜기에 고등어, 야채, 두부를 넣고 15분 찐다</li>
+            <li>고등어를 포크로 으깨며 뼈를 한 번 더 확인한다</li>
+          </ul>
+          <div class="tip-note">등푸른 생선은 DHA가 풍부하지만 12개월 이후 소량부터 시작하세요.</div>
+        </div>
+      </div>
+
+      <!-- 떡갈비 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>소고기 두부 떡갈비 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">6~8개 분량</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>소고기 다짐 100g</li>
+            <li>두부 50g (물기 제거)</li>
+            <li>양파 20g (곱게 다짐)</li>
+            <li>달걀 1/2개, 간장 극소량</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>두부를 면보에 싸서 물기를 짠다</li>
+            <li>모든 재료를 볼에 넣고 골고루 치댄다</li>
+            <li>한입 크기로 동그랗게 빚어 납작하게 만든다</li>
+            <li>팬에 기름을 두르고 약불에서 앞뒤로 노릇하게 굽는다</li>
+          </ul>
+          <div class="tip-note">냉동 보관 가능! 한 번에 여러 개 만들어 소분해 두면 편합니다.</div>
+        </div>
+      </div>
+
+      <!-- 과일 팬케이크 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>바나나 팬케이크 (간식) <span class="difficulty">쉬움</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">3~4장 분량</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>바나나 1개 (잘 익은 것)</li>
+            <li>달걀 1개</li>
+            <li>밀가루(또는 쌀가루) 30g</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>바나나를 포크로 곱게 으깬다</li>
+            <li>달걀과 밀가루를 넣고 골고루 섞는다</li>
+            <li>팬에 기름을 약간 두르고 약불에서 작게 부친다</li>
+            <li>한쪽이 익으면 뒤집어서 양면을 굽는다</li>
+          </ul>
+          <div class="tip-note">설탕 없이 바나나 단맛만으로 충분합니다. 블루베리를 으깨어 넣어도 좋아요.</div>
+        </div>
+      </div>
+
+      <!-- 잔치국수 -->
+      <div class="recipe-card">
+        <div class="recipe-card-header">
+          <h3>아기 잔치국수 <span class="difficulty medium">보통</span></h3>
+        </div>
+        <div class="recipe-card-body">
+          <p class="amount-info">1회분 기준</p>
+          <div class="recipe-section-title">재료</div>
+          <ul class="ingredients">
+            <li>소면 30g (2~3cm로 잘라서)</li>
+            <li>소고기 또는 닭 육수 200ml</li>
+            <li>애호박 10g, 당근 10g, 달걀 지단 약간</li>
+          </ul>
+          <div class="recipe-section-title">만드는 법</div>
+          <ul class="steps">
+            <li>소면을 삶아 찬물에 헹군 후 2~3cm로 자른다</li>
+            <li>야채를 잘게 다져 육수에 넣고 끓인다</li>
+            <li>야채가 익으면 삶은 국수를 넣고 2분 더 끓인다</li>
+            <li>달걀 지단을 얇게 부쳐 잘게 썰어 올린다</li>
+          </ul>
+          <div class="tip-note">국수는 길면 목에 걸릴 수 있으니 반드시 짧게 잘라주세요!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 이유식 꿀팁 ==================== -->
+  <div class="stage-section" id="tips">
+    <div class="stage-header">
+      <span class="stage-badge" style="background:var(--text);">꿀팁</span>
+      <h2>이유식 꿀팁 모음</h2>
+    </div>
+    <p class="stage-meta">선배 부모들의 실전 노하우</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3>&#x2744; 냉동 큐브 만들기</h3>
+        <ul>
+          <li><strong>재료별 큐브</strong>를 미리 만들어 냉동하면 조리 시간 단축</li>
+          <li>소고기, 닭가슴살, 야채를 삶아 다진 후 실리콘 틀에 소분</li>
+          <li>1회분(10~15g)씩 얼려 지퍼백에 날짜 표시하여 보관</li>
+          <li>냉동 큐브는 <strong>2주 이내</strong> 사용 권장</li>
+          <li>해동은 냉장 해동 또는 중탕이 안전 (전자레인지 가능)</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x26A0; 알레르기 대응법</h3>
+        <ul>
+          <li><strong>3일 규칙</strong>: 새 재료는 3일간 같은 것만 먹여 관찰</li>
+          <li>새 재료는 <strong>오전 중</strong>에 시도 (이상 반응 시 병원 방문 가능)</li>
+          <li>주의 관찰: 발진, 두드러기, 설사, 구토, 입 주변 부어오름</li>
+          <li>반응 있으면 즉시 중단 → 2~3개월 후 재시도</li>
+          <li><strong>이유식 일지</strong>를 기록하면 원인 파악에 도움</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F4A1; 실전 시간 절약 팁</h3>
+        <ul>
+          <li><strong>주 1회 대량 조리</strong> → 소분 냉동이 가장 효율적</li>
+          <li>밥솥 예약 기능으로 <strong>죽 자동 취사</strong> 활용</li>
+          <li>핸드블렌더 하나면 미음~죽까지 해결</li>
+          <li>야채는 주말에 한 번에 손질 → 잘게 다져 냉동</li>
+          <li>육수는 대량으로 끓여 얼음틀에 얼리기</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F6AB; 이유식 주의사항</h3>
+        <ul>
+          <li><strong>12개월 전 금지</strong>: 꿀, 생우유, 견과류(원형), 조개류</li>
+          <li><strong>24개월 전 주의</strong>: 등푸른 생선 과량, 가공식품, 과한 간</li>
+          <li>소금/설탕은 최대한 늦게, 극소량만</li>
+          <li>밥 먹기 직전에 데워서 제공 (실온 방치 금지)</li>
+          <li>아기가 거부하면 <strong>강요하지 말 것</strong> → 2~3일 후 재시도</li>
+          <li>한 번 입에 넣은 것은 <strong>재냉동 금지</strong></li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F959; 이유식 거부 시 대처법</h3>
+        <ul>
+          <li>배가 고플 때 시도 (수유 30분~1시간 전)</li>
+          <li>부모가 먼저 맛있게 먹는 모습 보여주기</li>
+          <li>같은 재료를 <strong>다른 조리법</strong>으로 시도</li>
+          <li>숟가락을 거부하면 핑거푸드로 전환</li>
+          <li>강요 대신 <strong>10회 이상 반복 노출</strong>이 효과적</li>
+          <li>놀이처럼 즐거운 분위기에서 식사하기</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F4CB; 단계 전환 체크리스트</h3>
+        <ul>
+          <li>현재 단계의 이유식을 <strong>잘 먹고 있는가?</strong></li>
+          <li>입 안의 음식을 <strong>혀로 으깰 수 있는가?</strong></li>
+          <li>손으로 음식을 <strong>집으려 하는가?</strong> (후기 전환)</li>
+          <li>하루 수유량이 <strong>줄어들고 있는가?</strong></li>
+          <li>체크 항목이 대부분 해당되면 다음 단계로!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>본 레시피는 일반적인 참고용이며, 아기마다 알레르기 반응과 기호가 다를 수 있습니다.</p>
+  <p>새로운 식재료 도입 시에는 소아청소년과 전문의와 상담하세요.</p>
+  <p style="margin-top:12px;">
+    <a href="index.html">&larr; 월령별 육아 가이드로 돌아가기</a>
+  </p>
+  <p style="margin-top:8px;">
+    참고:
+    <a href="https://www.childcare.go.kr" target="_blank">중앙육아종합지원센터</a> |
+    <a href="https://www.ibabynews.com/news/articleView.html?idxno=40628" target="_blank">베이비뉴스</a> |
+    <a href="https://gooddaddy.kr/blog/0136-baby-food-complete-guide/" target="_blank">굿대디</a> |
+    <a href="https://baby.tali.kr/baby-weaning-food-schedule" target="_blank">비행테라스</a>
+  </p>
+</div>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('.stage-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

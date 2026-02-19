@@ -20,6 +20,7 @@
       --tip: #0984E3;
       --daycare: #00CEC9;
       --product: #E84393;
+      --babyfood: #FF9F43;
       --shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
@@ -185,6 +186,7 @@
     .card.tip { border-left-color: var(--tip); }
     .card.daycare { border-left-color: var(--daycare); }
     .card.product { border-left-color: var(--product); }
+    .card.babyfood { border-left-color: var(--babyfood); }
 
     .card-title {
       font-size: 0.85rem;
@@ -203,6 +205,31 @@
     .card.tip .card-title { color: var(--tip); }
     .card.daycare .card-title { color: var(--daycare); }
     .card.product .card-title { color: var(--product); }
+    .card.babyfood .card-title { color: var(--babyfood); }
+    .card.babyfood li::before { background: #FFE0B2; }
+    .ingredient-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin: 1px 2px;
+    }
+    .ingredient-tag.grain { background: #FFF3E0; color: #E65100; }
+    .ingredient-tag.veg { background: #E8F5E9; color: #2E7D32; }
+    .ingredient-tag.fruit { background: #FFF8E1; color: #F57F17; }
+    .ingredient-tag.protein { background: #FCE4EC; color: #C62828; }
+    .ingredient-tag.fish { background: #E3F2FD; color: #1565C0; }
+    .ingredient-tag.dairy { background: #F3E5F5; color: #7B1FA2; }
+    .ingredient-tag.caution { background: #FFF3E0; color: #BF360C; border: 1px dashed #BF360C; }
+    .recipe-link {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 8px; padding: 6px 14px;
+      background: var(--babyfood); color: white;
+      border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .recipe-link:hover { opacity: 0.85; }
     .card.product li::before { background: #F8C8DC; }
     .product-tag {
       display: inline-block;
@@ -858,6 +885,17 @@
           <li>다양한 질감의 장난감 제공</li>
         </ul>
       </div>
+      <div class="card babyfood">
+        <div class="card-title">&#x1F35A; 이유식 재료 (초기 1단계)</div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">미음 형태 / 하루 1회 / 1~2숟가락부터</p>
+        <ul>
+          <li><span class="ingredient-tag grain">곡류</span> <strong>쌀</strong> (첫 이유식은 쌀미음으로 시작)</li>
+          <li><span class="ingredient-tag veg">채소</span> <strong>애호박, 감자, 고구마, 브로콜리, 청경채</strong></li>
+          <li><span class="ingredient-tag fruit">과일</span> <strong>사과, 배</strong> (익혀서 곱게 갈기)</li>
+        </ul>
+        <p style="font-size:0.82rem;color:var(--babyfood);margin-top:8px;">새 재료는 3~5일 간격으로 1가지씩 추가</p>
+        <a href="recipes.html#early" class="recipe-link">&#x1F4D6; 초기 이유식 레시피 보기 &rarr;</a>
+      </div>
       <div class="card product">
         <div class="card-title">&#x1F381; 추천 제품</div>
         <ul>
@@ -896,6 +934,18 @@
           <li>모유 아기도 6개월부터 이유식 시작</li>
           <li>물이나 보리차 소량 시작 가능</li>
         </ul>
+      </div>
+      <div class="card babyfood">
+        <div class="card-title">&#x1F35A; 이유식 재료 (초기 2단계)</div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">미음→묽은 죽 전환 / 하루 1~2회</p>
+        <ul>
+          <li><span class="ingredient-tag grain">곡류</span> <strong>쌀, 오트밀, 찹쌀</strong></li>
+          <li><span class="ingredient-tag veg">채소</span> <strong>양배추, 비타민, 무, 단호박, 완두콩</strong></li>
+          <li><span class="ingredient-tag fruit">과일</span> <strong>바나나, 자두, 아보카도</strong></li>
+          <li><span class="ingredient-tag protein">단백질</span> <strong>소고기</strong> (철분 보충, 곱게 갈아서)</li>
+        </ul>
+        <p style="font-size:0.82rem;color:#BF360C;margin-top:8px;">&#x26A0; 꿀, 생우유, 견과류 절대 금지</p>
+        <a href="recipes.html#early" class="recipe-link">&#x1F4D6; 초기 이유식 레시피 보기 &rarr;</a>
       </div>
       <div class="card sleep">
         <div class="card-title">&#x1F31C; 수면</div>
@@ -957,6 +1007,19 @@
           <li>손으로 집어먹기(핑거푸드) 시도</li>
         </ul>
       </div>
+      <div class="card babyfood">
+        <div class="card-title">&#x1F35A; 이유식 재료 (중기)</div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">잘게 다진 죽 / 하루 2회 / 입자감 도입</p>
+        <ul>
+          <li><span class="ingredient-tag grain">곡류</span> <strong>쌀, 보리, 오트밀, 퀴노아</strong></li>
+          <li><span class="ingredient-tag veg">채소</span> <strong>당근, 양파, 시금치, 비트, 가지, 파프리카, 버섯류</strong></li>
+          <li><span class="ingredient-tag fruit">과일</span> <strong>수박, 참외, 포도(껍질 제거), 키위</strong></li>
+          <li><span class="ingredient-tag protein">단백질</span> <strong>닭가슴살, 달걀 노른자, 두부(연두부)</strong></li>
+          <li><span class="ingredient-tag fish">해산물</span> <strong>흰살생선(대구, 가자미), 미역, 김</strong></li>
+        </ul>
+        <p style="font-size:0.82rem;color:#BF360C;margin-top:8px;">&#x26A0; 달걀 흰자, 붉은살 생선은 아직 주의</p>
+        <a href="recipes.html#mid" class="recipe-link">&#x1F4D6; 중기 이유식 레시피 보기 &rarr;</a>
+      </div>
       <div class="card sleep">
         <div class="card-title">&#x1F31C; 수면</div>
         <ul>
@@ -1012,6 +1075,19 @@
           <li>스스로 숟가락 잡기 연습</li>
         </ul>
       </div>
+      <div class="card babyfood">
+        <div class="card-title">&#x1F35A; 이유식 재료 (후기)</div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">무른밥/덩어리죽 / 하루 3회 / 핑거푸드 도입</p>
+        <ul>
+          <li><span class="ingredient-tag protein">단백질</span> <strong>달걀 전체(흰자 포함), 돼지고기, 소고기 다짐</strong></li>
+          <li><span class="ingredient-tag fish">해산물</span> <strong>연어, 새우(소량), 멸치</strong></li>
+          <li><span class="ingredient-tag veg">채소</span> <strong>연근, 아욱, 콩나물, 토마토, 옥수수</strong></li>
+          <li><span class="ingredient-tag dairy">유제품</span> <strong>플레인 요거트, 치즈(소량)</strong></li>
+          <li><span class="ingredient-tag fruit">과일</span> <strong>딸기, 블루베리, 귤, 복숭아</strong></li>
+          <li>조미료: <strong>참기름, 들기름</strong> 소량 사용 가능</li>
+        </ul>
+        <a href="recipes.html#late" class="recipe-link">&#x1F4D6; 후기 이유식 레시피 보기 &rarr;</a>
+      </div>
       <div class="card sleep">
         <div class="card-title">&#x1F31C; 수면</div>
         <ul>
@@ -1066,6 +1142,19 @@
           <li>생우유는 만 12개월 이후부터 가능</li>
           <li>스스로 손으로 먹는 연습</li>
         </ul>
+      </div>
+      <div class="card babyfood">
+        <div class="card-title">&#x1F35A; 이유식 재료 (완료기)</div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:8px;">진밥/유아식 전환 / 하루 3끼 + 간식</p>
+        <ul>
+          <li><span class="ingredient-tag dairy">유제품</span> <strong>생우유</strong> (12개월 이후 가능, 하루 400ml 이하)</li>
+          <li><span class="ingredient-tag protein">단백질</span> <strong>거의 모든 육류, 달걀 완전식</strong></li>
+          <li><span class="ingredient-tag fish">해산물</span> <strong>등푸른 생선(고등어, 삼치), 조개류(소량)</strong></li>
+          <li><span class="ingredient-tag fruit">과일</span> <strong>대부분의 과일 가능, 견과류(곱게 갈아서)</strong></li>
+          <li>조미료: 간장, 소금 <strong>극소량</strong> 사용 가능</li>
+        </ul>
+        <p style="font-size:0.82rem;color:#BF360C;margin-top:8px;">&#x26A0; 꿀은 12개월 이후부터 가능</p>
+        <a href="recipes.html#complete" class="recipe-link">&#x1F4D6; 완료기 레시피 보기 &rarr;</a>
       </div>
       <div class="card sleep">
         <div class="card-title">&#x1F31C; 수면</div>
