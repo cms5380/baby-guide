@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>월령별 아기 놀이 가이드</title>
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --bg: #F0F8FF;
+      --card-bg: #FFFFFF;
+      --text: #2D3436;
+      --text-light: #636E72;
+      --border: #E2E8F0;
+      --sensory: #FF6B6B;
+      --motor: #4ECDC4;
+      --cognitive: #45B7D1;
+      --language: #96CEB4;
+      --social: #FECA57;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 50%, #6C63FF 100%);
+      color: white;
+      text-align: center;
+      padding: 50px 20px 70px;
+      position: relative;
+    }
+    .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 6px; }
+    .header p { font-size: 1rem; opacity: 0.9; }
+    .header .back-link {
+      position: absolute; top: 20px; left: 20px;
+      color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px;
+      transition: background 0.2s;
+    }
+    .header .back-link:hover { background: rgba(255,255,255,0.35); }
+    .header-wave {
+      position: absolute; bottom: -1px; left: 0; width: 100%;
+      fill: var(--bg);
+    }
+
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(240,248,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; gap: 6px;
+      max-width: 960px; margin: 0 auto;
+      padding: 12px 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 8px 16px; border-radius: 20px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      color: var(--text-light); background: white;
+      border: 2px solid var(--border);
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .nav a:hover, .nav a.active {
+      background: var(--cognitive); color: white; border-color: var(--cognitive);
+    }
+
+    .content { max-width: 960px; margin: 0 auto; padding: 30px 20px 60px; }
+
+    /* Legend */
+    .legend {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding: 16px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600;
+    }
+    .legend-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+
+    /* Age Section */
+    .age-section {
+      margin-bottom: 50px;
+      scroll-margin-top: 80px;
+    }
+    .age-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 8px;
+    }
+    .age-badge {
+      padding: 8px 20px; border-radius: 20px;
+      color: white; font-weight: 700; font-size: 0.9rem;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--motor), var(--cognitive));
+    }
+    .age-header h2 { font-size: 1.5rem; font-weight: 800; }
+    .age-meta {
+      font-size: 0.9rem; color: var(--text-light);
+      margin-bottom: 20px; padding-left: 2px;
+    }
+
+    /* Play card */
+    .play-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+    .play-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+      border-top: 4px solid var(--cognitive);
+    }
+    .play-card:hover { transform: translateY(-3px); }
+    .play-card.sensory { border-top-color: var(--sensory); }
+    .play-card.motor { border-top-color: var(--motor); }
+    .play-card.cognitive { border-top-color: var(--cognitive); }
+    .play-card.language { border-top-color: var(--language); }
+    .play-card.social { border-top-color: var(--social); }
+    .play-card-header {
+      padding: 16px 20px 10px;
+    }
+    .play-card-header h3 {
+      font-size: 1.05rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap;
+    }
+    .play-tag {
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      color: white;
+    }
+    .play-tag.sensory { background: var(--sensory); }
+    .play-tag.motor { background: var(--motor); }
+    .play-tag.cognitive { background: var(--cognitive); }
+    .play-tag.language { background: var(--language); }
+    .play-tag.social { background: var(--social); }
+    .play-card-body { padding: 0 20px 18px; }
+    .play-section-title {
+      font-size: 0.78rem; font-weight: 700; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 6px; margin-top: 10px;
+    }
+    .play-section-title:first-child { margin-top: 0; }
+    .play-card-body ul {
+      list-style: none; padding: 0;
+    }
+    .play-card-body li {
+      font-size: 0.88rem; padding: 2px 0;
+      padding-left: 16px; position: relative;
+    }
+    .play-card-body li::before {
+      content: ''; position: absolute;
+      left: 0; top: 11px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--cognitive);
+    }
+    .play-card-body .steps { counter-reset: step; }
+    .play-card-body .steps li {
+      padding-left: 24px; padding-top: 3px; padding-bottom: 3px;
+    }
+    .play-card-body .steps li::before {
+      content: counter(step); counter-increment: step;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text);
+      font-size: 0.68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      top: 7px;
+    }
+    .play-card .effect-note {
+      background: #E8F8F5;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      margin-top: 10px;
+      color: #00796B;
+      line-height: 1.6;
+    }
+    .play-card .tools-note {
+      font-size: 0.8rem; color: var(--text-light);
+      margin-top: 6px; margin-bottom: 4px;
+    }
+
+    /* Tips */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .tip-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--cognitive);
+    }
+    .tip-card h3 {
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .tip-card ul { list-style: none; padding: 0; }
+    .tip-card li {
+      font-size: 0.88rem; padding: 4px 0;
+      padding-left: 18px; position: relative;
+    }
+    .tip-card li::before {
+      content: ''; position: absolute;
+      left: 0; top: 12px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cognitive);
+    }
+
+    .footer {
+      text-align: center; padding: 30px 20px;
+      color: var(--text-light); font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      max-width: 960px; margin: 0 auto;
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .header { padding: 40px 16px 60px; }
+      .header h1 { font-size: 1.7rem; }
+      .header .back-link { top: 12px; left: 12px; font-size: 0.82rem; }
+      .play-grid { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+      .legend { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back-link">&larr; 메인으로</a>
+  <h1>월령별 아기 놀이 가이드</h1>
+  <p>발달 단계에 맞는 놀이로 아기와 즐겁게!</p>
+  <svg class="header-wave" viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0,40 C360,80 720,0 1440,40 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <a href="#age-0">0~2개월</a>
+    <a href="#age-3">3~4개월</a>
+    <a href="#age-5">5~6개월</a>
+    <a href="#age-7">7~8개월</a>
+    <a href="#age-9">9~10개월</a>
+    <a href="#age-11">11~12개월</a>
+    <a href="#age-13">13~18개월</a>
+    <a href="#age-19">19~24개월</a>
+    <a href="#play-tips">놀이 꿀팁</a>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sensory)"></div> 감각놀이</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--motor)"></div> 대근육/소근육</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cognitive)"></div> 인지발달</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--language)"></div> 언어발달</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--social)"></div> 사회성/정서</div>
+  </div>
+
+  <!-- ==================== 0~2개월 ==================== -->
+  <div class="age-section" id="age-0">
+    <div class="age-header">
+      <span class="age-badge">0~2개월</span>
+      <h2>신생아 놀이</h2>
+    </div>
+    <p class="age-meta">시각 20~25cm 초점 / 청각 먼저 발달 / 짧게(3~5분) 자주 자극</p>
+
+    <div class="play-grid">
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>흑백 모빌 시각 추적 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 흑백 모빌 또는 흑백 초점책</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기 얼굴에서 20~25cm 거리에 흑백 모빌을 매달아준다</li>
+            <li>모빌을 천천히 좌우로 움직이며 시선이 따라가게 한다</li>
+            <li>1회 3~5분, 하루 3~4회 반복</li>
+          </ul>
+          <div class="effect-note">시각 추적 능력 발달, 집중력 향상, 뇌의 시각 처리 영역 자극</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>눈 맞춤 & 표정 놀이 <span class="play-tag social">정서</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>수유 중이나 안고 있을 때 아기 눈높이에서 눈을 맞춘다</li>
+            <li>입을 크게 벌리거나 혀를 내밀며 표정을 천천히 보여준다</li>
+            <li>아기가 반응하면 "잘했어!" 하며 답해준다</li>
+          </ul>
+          <div class="effect-note">사회적 상호작용의 기초, 정서 발달, 언어 발달 전 단계 준비</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>딸랑이 청각 추적 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 부드러운 소리 딸랑이</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기 귀 옆 10~15cm에서 딸랑이를 천천히 흔든다</li>
+            <li>아기가 고개를 소리 방향으로 돌리면 칭찬하고 잠시 멈춘다</li>
+            <li>반대편에서도 반복한다</li>
+          </ul>
+          <div class="effect-note">청각 발달, 소리 방향 인지(좌우 구분), 목 근육 초기 자극</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>로션 마사지 <span class="play-tag sensory">감각</span> <span class="play-tag social">정서</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 아기용 로션 또는 오일</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>목욕 후 로션을 손에 따뜻하게 데운다</li>
+            <li>발 &rarr; 다리 &rarr; 배 &rarr; 팔 &rarr; 손 순서로 원을 그리며 마사지</li>
+            <li>"발이 따뜻하지?" 하며 계속 말을 걸어준다</li>
+          </ul>
+          <div class="effect-note">촉각 발달, 부모-아기 애착 형성, 소화 기능 도움, 정서 안정</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>자장가 & 목소리 놀이 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기를 안고 흔들면서 자장가를 부른다</li>
+            <li>같은 멜로디를 높은/낮은 목소리로 불러본다</li>
+            <li>아기 반응을 기다린 뒤 다시 노래한다</li>
+          </ul>
+          <div class="effect-note">청각 및 언어 발달의 기초, 정서적 안정감, 리듬 감각 초기 형성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 3~4개월 ==================== -->
+  <div class="age-section" id="age-3">
+    <div class="age-header">
+      <span class="age-badge">3~4개월</span>
+      <h2>목 가누기 시작</h2>
+    </div>
+    <p class="age-meta">엎드린 상태에서 머리 들기 / 옹알이 시작 / 색깔 구분 가능</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>터미 타임 (Tummy Time) <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 플레이 매트, 딸랑이</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>매트 위에 아기를 엎드려 놓는다</li>
+            <li>눈높이에서 딸랑이나 인형을 흔들어 고개를 들도록 유도</li>
+            <li>처음 3~5분에서 점차 10~15분으로 늘린다</li>
+            <li>아기가 울면 즉시 자세를 바꿔준다</li>
+          </ul>
+          <div class="effect-note">목, 어깨, 등 근육 강화 (뒤집기 준비), 대근육 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>거울 놀이 <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 아기용 안전 거울 (깨지지 않는 것)</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기 앞에 안전 거울을 놓아준다</li>
+            <li>"거울 속에 누가 있지? 우리 OO이 맞지?" 하며 말 걸기</li>
+            <li>눈 맞추고 표정 따라 하기</li>
+          </ul>
+          <div class="effect-note">자아 인식 발달 초기 단계, 목 근육 강화, 시각 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>옹알이 메아리 놀이 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기가 "아~", "우~" 하고 소리 내면 똑같이 따라한다</li>
+            <li>아기가 다시 소리 내면 또 따라한다</li>
+            <li>대화처럼 5~10분간 이어나간다</li>
+          </ul>
+          <div class="effect-note">언어 발달 기초, 발성 근육 발달, 상호작용 능력 형성</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>컬러 모빌 & 사물 추적 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 컬러 모빌 또는 색깔 공</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>흑백 모빌을 밝은 색상(빨강, 노랑, 파랑)으로 교체</li>
+            <li>모빌을 느리게 돌려 시선이 따라가게 한다</li>
+            <li>색깔 공을 좌우, 상하로 부드럽게 움직인다</li>
+          </ul>
+          <div class="effect-note">색상 인지 발달, 눈 근육 협응, 집중력 향상</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>오볼 잡기 연습 <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 오볼(구멍 뚫린 공), 손잡이 딸랑이</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>가볍고 잡기 쉬운 오볼을 아기 손에 쥐어준다</li>
+            <li>스스로 손을 바라보고 흔들게 한다</li>
+            <li>손가락을 살살 펴거나 구부려 촉감을 느끼게 한다</li>
+          </ul>
+          <div class="effect-note">소근육 발달 초기 단계, 눈-손 협응 시작, 촉각 자극</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 5~6개월 ==================== -->
+  <div class="age-section" id="age-5">
+    <div class="age-header">
+      <span class="age-badge">5~6개월</span>
+      <h2>뒤집기, 앉기 시작</h2>
+    </div>
+    <p class="age-meta">뒤집기 시작 / 대상 영속성 발달 / 옹알이에 자음 섞임 / 모방 욕구</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>뒤집기 유도 놀이 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 소리나는 장난감</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기를 등으로 눕힌 후 옆에 장난감을 보여준다</li>
+            <li>장난감을 뒤집어야 닿는 방향으로 살짝 이동시킨다</li>
+            <li>아기가 뒤집으려 하면 엉덩이를 살짝 밀어준다</li>
+            <li>성공하면 크게 칭찬!</li>
+          </ul>
+          <div class="effect-note">대근육 발달, 뒤집기 완성, 체간 근육 강화</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>까꿍 놀이 <span class="play-tag cognitive">인지</span> <span class="play-tag social">정서</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 얇은 수건</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>얼굴을 손으로 가렸다가 "까꿍!" 하며 열어 보인다</li>
+            <li>수건으로 장난감을 덮었다가 들춰 보이기도 한다</li>
+            <li>아기가 천을 치워 찾으면 크게 반응한다</li>
+          </ul>
+          <div class="effect-note">대상 영속성 인지 발달, 기억력 향상, 집중력</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>쿠션 앉기 연습 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: V자 수유쿠션 또는 범퍼 쿠션</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>쿠션 안에 아기를 앉힌다</li>
+            <li>앞에 장난감을 놓아 손을 뻗게 한다</li>
+            <li>점점 지지대를 줄이며 균형 감각을 키운다</li>
+            <li>1회 5분 이내, 넘어지면 즉시 잡아준다</li>
+          </ul>
+          <div class="effect-note">체간 균형 감각, 앉기 준비, 소근육 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>촉감 바구니 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 다양한 촉감 물건 (천, 고무공, 나무 블록, 스펀지 등)</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>바구니에 다양한 촉감 물건을 담아준다</li>
+            <li>아기가 집어 만져보고 탐색하게 한다 (삼킬 수 없는 크기)</li>
+            <li>"차갑다", "말랑말랑", "딱딱해" 하며 말해준다</li>
+          </ul>
+          <div class="effect-note">촉각 감각 발달, 소근육, 인지 발달, 언어 발달(단어 연결)</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>원인-결과 장난감 <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 사운드 버튼 장난감</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>버튼을 누르면 소리/인형이 나오는 장난감을 함께 탐색</li>
+            <li>처음에는 보호자가 눌러 보여준다</li>
+            <li>아기 손을 잡고 함께 눌러보고, 혼자 눌러보게 한다</li>
+          </ul>
+          <div class="effect-note">원인-결과 인지, 문제해결 능력 초기 발달, 소근육</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>거울 보며 노래하기 <span class="play-tag language">언어</span> <span class="play-tag social">정서</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 전신 거울</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기를 안고 거울 앞에 선다</li>
+            <li>"눈은 어디? 여기! 코는? 여기!" 하며 신체 부위를 짚는다</li>
+            <li>노래에 맞춰 아기 팔을 흔들거나 춤추게 한다</li>
+          </ul>
+          <div class="effect-note">자아 인식, 신체 부위 언어 노출, 정서 발달</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 7~8개월 ==================== -->
+  <div class="age-section" id="age-7">
+    <div class="age-header">
+      <span class="age-badge">7~8개월</span>
+      <h2>기기 시작</h2>
+    </div>
+    <p class="age-meta">배밀이 &rarr; 네 발 기기 / 낯가림 시작 / 이름에 반응 / 옹알이 억양</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>장난감 쫓기 기기 연습 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 부드러운 공, 좋아하는 장난감</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기 앞 50~70cm에 장난감을 놓는다</li>
+            <li>기어가 잡으면 칭찬하고 다시 조금 더 멀리 굴린다</li>
+            <li>다리 사이를 터널처럼 만들어 통과하게 해도 재미있다</li>
+          </ul>
+          <div class="effect-note">대근육 발달(팔다리 협응), 이동 능력, 목표 지향적 행동</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>감각 탐색 상자 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 낮은 용기, 쌀/콩/물 등</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>낮은 상자에 쌀, 말린 콩 등을 담는다</li>
+            <li>아기가 퍼내고 섞고 쏟게 한다</li>
+            <li>"축축하네", "까끌까끌해" 하며 감각 언어를 붙인다</li>
+            <li>입에 넣지 않도록 감독 필수!</li>
+          </ul>
+          <div class="effect-note">감각 통합 발달, 소근육, 인지 및 언어 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>용기 담기 & 꺼내기 <span class="play-tag cognitive">인지</span> <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 플라스틱 통, 부드러운 공 3~5개</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>통에 공을 담아 꺼내게 한다</li>
+            <li>다시 담도록 시범을 보인다</li>
+            <li>"넣어볼까? 쏙! 꺼내볼까? 쑥!" 하며 말해준다</li>
+          </ul>
+          <div class="effect-note">소근육 발달, 공간 개념(안/밖), 모방 능력</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>무릎 말타기 <span class="play-tag social">정서</span> <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기를 무릎 위에 앉힌다</li>
+            <li>다리를 위아래로 움직이며 말타기 동작을 한다</li>
+            <li>"폴짝폴짝 말타기~" 노래에 맞춰 리듬을 넣는다</li>
+            <li>빠르게/느리게 변화를 준다</li>
+          </ul>
+          <div class="effect-note">전정 감각(균형감각) 발달, 근육 긴장도 조절, 유대감</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>이름 부르기 놀이 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>방의 다른 쪽에서 아기 이름을 부른다</li>
+            <li>고개를 돌리면 달려가 안아준다</li>
+            <li>여러 방향에서 번갈아 이름을 부른다</li>
+          </ul>
+          <div class="effect-note">언어 이해 발달, 이름 인식, 청각 방향 탐지</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>작은 물건 집기 연습 <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 굵은 색깔 털실 또는 퍼프 과자</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>매트 위에 색깔 있는 물건을 흩뿌린다</li>
+            <li>엄지와 검지로 집어 올리게 한다</li>
+            <li>"잡아봐!" 하며 색 이름도 들려준다</li>
+          </ul>
+          <div class="effect-note">집게손가락 집기(pincer grasp) 준비, 눈-손 협응</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 9~10개월 ==================== -->
+  <div class="age-section" id="age-9">
+    <div class="age-header">
+      <span class="age-badge">9~10개월</span>
+      <h2>잡고 서기</h2>
+    </div>
+    <p class="age-meta">가구 잡고 서기 / 짝짜꿍, 빠이빠이 모방 / "엄마", "아빠" 사용 시작</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>가구 잡고 옆걸음 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 안정적인 낮은 가구</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>소파나 테이블 앞에 아기를 세운다</li>
+            <li>테이블 위에 장난감을 올려 옆으로 이동하게 유도</li>
+            <li>"한 발, 두 발!" 하며 박자를 넣어준다</li>
+          </ul>
+          <div class="effect-note">하체 근력, 균형 감각, 걷기 준비(cruising)</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>짝짜꿍 & 도리도리 <span class="play-tag social">사회성</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>"짝짜꿍!" 하며 손뼉을 치고 아기가 따라하게 한다</li>
+            <li>"도리도리" 고개 흔들기도 시범을 보인다</li>
+            <li>"곤지곤지", "빠이빠이" 동작도 차례로 가르친다</li>
+          </ul>
+          <div class="effect-note">모방 능력, 소근육, 사회적 상호작용, 언어-행동 연결</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>숨긴 장난감 찾기 <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 작은 장난감, 수건 2장</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기가 보는 앞에서 장난감을 수건 아래 숨긴다</li>
+            <li>"어디 갔지? 찾아봐!" 한다</li>
+            <li>수건 두 개 중 한 곳에 숨기고 맞추게 해본다</li>
+          </ul>
+          <div class="effect-note">대상 영속성 완성, 기억력, 문제 해결 능력</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>간식 집기 (핀서 그립) <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 이유식용 소프트 간식 (바나나, 퍼프 등)</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>식판에 작은 과일 조각이나 퍼프를 올려준다</li>
+            <li>엄지-검지로 집어 먹도록 한다</li>
+            <li>"잡아봐, 쏙!" 하며 격려</li>
+          </ul>
+          <div class="effect-note">소근육(집게 집기) 발달, 눈-손 협응, 자율성</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>전화기 놀이 <span class="play-tag language">언어</span> <span class="play-tag social">사회성</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 장난감 전화기</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>장난감 전화기를 귀에 대게 한다</li>
+            <li>"여보세요~ OO아 뭐 해?" 하며 대화한다</li>
+            <li>아기가 옹알이로 반응하면 "그렇구나~" 하며 이어간다</li>
+          </ul>
+          <div class="effect-note">언어 발달, 사회적 상호작용, 모방, 의사소통 욕구 자극</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>의성어 그림책 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 의성어 그림책</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>"멍멍", "야옹", "꽥꽥" 등 리듬감 있게 읽는다</li>
+            <li>동물마다 소리를 흉내 내고 따라하게 한다</li>
+            <li>같은 책을 매일 반복 읽어도 좋다</li>
+          </ul>
+          <div class="effect-note">어휘 발달, 소리-사물 연결, 청각 언어 이해</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 11~12개월 ==================== -->
+  <div class="age-section" id="age-11">
+    <div class="age-header">
+      <span class="age-badge">11~12개월</span>
+      <h2>걷기 시작</h2>
+    </div>
+    <p class="age-meta">혼자 서기 / 간단한 지시 이해 / 블록 2개 쌓기 / 2~3단어 사용</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>밀고 걷기 장난감 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 밀기 장난감 카트</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>카트를 잡게 하고 밀며 걸어가게 한다</li>
+            <li>보호자가 뒤에서 따라가며 안전을 지킨다</li>
+            <li>짧은 거리부터 시작해 점차 늘린다</li>
+          </ul>
+          <div class="effect-note">보행 발달, 하체 근력, 균형 감각, 자신감</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>아빠 발등 걷기 <span class="play-tag social">정서</span> <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아기 발을 아빠 발등 위에 올린다</li>
+            <li>양손을 잡고 앞, 뒤, 옆으로 천천히 걷는다</li>
+            <li>"한 발 두 발 셋 넷!" 하며 박자를 맞춘다</li>
+          </ul>
+          <div class="effect-note">보행 리듬 학습, 하체 근육 자극, 신뢰감과 유대감</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>블록 쌓기 & 무너뜨리기 <span class="play-tag cognitive">인지</span> <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 소프트 블록</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>하나씩 쌓아 탑을 만들어 보인다</li>
+            <li>아기가 따라 쌓게 하며 "하나, 둘, 셋!" 센다</li>
+            <li>손으로 무너뜨리며 함께 웃는다</li>
+          </ul>
+          <div class="effect-note">소근육, 눈-손 협응, 인과 관계, 수 개념 초기 노출</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>풍선 감각 놀이 <span class="play-tag sensory">감각</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 풍선, 쌀/밀가루/물</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>풍선에 공기, 물, 쌀, 밀가루를 각각 채운다</li>
+            <li>아기가 누르고 굴리고 두드리게 한다</li>
+            <li>"출렁출렁", "바삭바삭" 하며 감각 언어를 붙인다</li>
+          </ul>
+          <div class="effect-note">촉각 감각 통합, 소근육, 감각 형용사 어휘 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>손수건 잡아당기기 <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 손수건</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>손수건의 한쪽을 잡고 아기에게 반대쪽을 쥐어준다</li>
+            <li>부드럽게 줄다리기 놀이를 한다</li>
+            <li>상자에 구멍을 내고 손수건을 넣어 꺼내게 해도 좋다</li>
+          </ul>
+          <div class="effect-note">소근육, 팔 힘, 인과 관계 인지, 집중력</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>지시 따르기 놀이 <span class="play-tag language">언어</span> <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 친숙한 물건 3~4개</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>공, 인형, 블록 등을 바닥에 놓는다</li>
+            <li>"공을 줘봐", "인형은 어디 있어?" 하며 요청한다</li>
+            <li>정확히 찾으면 크게 칭찬하고 이름을 반복한다</li>
+          </ul>
+          <div class="effect-note">언어 이해력, 수용 언어 발달, 인지 발달</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 13~18개월 ==================== -->
+  <div class="age-section" id="age-13">
+    <div class="age-header">
+      <span class="age-badge">13~18개월</span>
+      <h2>걷기/뛰기</h2>
+    </div>
+    <p class="age-meta">혼자 걷기 능숙 / 모방 욕구 폭발 / 블록 3~4개 쌓기 / 낙서 시작</p>
+
+    <div class="play-grid">
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>공 굴리기 & 차기 <span class="play-tag motor">대근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 부드러운 공</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>마주 보고 앉아 공을 서로 굴린다</li>
+            <li>일어서서 발로 공을 차게 한다</li>
+            <li>블록 탑을 세워놓고 공으로 쓰러뜨리는 볼링도 재미있다</li>
+          </ul>
+          <div class="effect-note">대근육(차기/굴리기), 눈-발 협응, 사회적 순서 개념</div>
+        </div>
+      </div>
+
+      <div class="play-card sensory">
+        <div class="play-card-header">
+          <h3>밀가루 반죽 놀이 <span class="play-tag sensory">감각</span> <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 밀가루 1컵, 소금 0.5컵, 물 0.5컵, 식용 색소</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>밀가루+소금+물로 반죽해 색을 입힌다</li>
+            <li>주무르고, 납작하게 누르고, 밀대로 밀게 한다</li>
+            <li>모양틀로 찍기도 한다</li>
+            <li>"뭐 만드는 거야?" 하며 대화한다</li>
+          </ul>
+          <div class="effect-note">소근육(손 힘), 감각 자극, 창의성, 언어 발달</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>모양 맞추기 & 퍼즐 <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 모양 끼우기 통, 2~3조각 퍼즐</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>동그라미/세모/네모 구멍에 블록을 끼워 넣게 한다</li>
+            <li>양말을 색깔별로 짝 맞추는 분류 놀이도 해본다</li>
+            <li>"빨간 양말 어디 있어?" 하며 색 이름도 알려준다</li>
+          </ul>
+          <div class="effect-note">공간 감각, 문제 해결 능력, 도형 인지, 분류 능력</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>역할 놀이 (모방 놀이) <span class="play-tag social">사회성</span> <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 아기 인형, 장난감 그릇</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>인형에게 밥 먹이기, 재우기를 시범 보인다</li>
+            <li>아기가 따라하면 역할을 확장한다</li>
+            <li>"아기가 배고프대, 밥 줄까?" 처럼 이야기를 이어간다</li>
+          </ul>
+          <div class="effect-note">인지 발달(상징적 사고), 언어 발달, 사회성, 정서 이해</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>끼적이기 & 스티커 놀이 <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 큰 도화지, 굵은 크레용, 스티커</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>큰 종이를 바닥에 펼치고 크레용을 준다</li>
+            <li>자유롭게 끼적이게 한다</li>
+            <li>"무슨 색이야?", "뭐 그렸어?" 하며 대화한다</li>
+            <li>스티커를 여러 곳에 붙이기도 한다</li>
+          </ul>
+          <div class="effect-note">소근육, 창의성, 색 언어, 자기 표현, 집중력</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>그림책 읽기 & 가리키기 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 그림이 큰 그림책</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>"멍멍이 어디 있어?" 하며 손가락으로 가리키게 한다</li>
+            <li>맞게 가리키면 이름을 반복해 읽어주고 칭찬</li>
+            <li>같은 책을 매일 반복 읽으면 기억력이 자극된다</li>
+          </ul>
+          <div class="effect-note">수용 언어 발달, 어휘, 집중력, 기억력</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 19~24개월 ==================== -->
+  <div class="age-section" id="age-19">
+    <div class="age-header">
+      <span class="age-badge">19~24개월</span>
+      <h2>언어 폭발기</h2>
+    </div>
+    <p class="age-meta">어휘 50 &rarr; 250~300개 / 2~3단어 문장 / 뛰기, 계단 오르기 / 자기 주장 강해짐</p>
+
+    <div class="play-grid">
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>그림책 확장 대화 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 이야기 있는 그림책</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>아이가 가리키는 것에 반응한다</li>
+            <li>"멍멍" &rarr; "맞아, 강아지가 달리고 있네" 처럼 확장한다</li>
+            <li>"무슨 색이야?", "어디로 가고 있어?" 열린 질문을 한다</li>
+          </ul>
+          <div class="effect-note">어휘 폭발 지원, 문장 구조 학습, 이해력, 집중력</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>비눗방울 놀이 <span class="play-tag motor">대근육</span> <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 비눗방울 용액과 불대</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>비눗방울을 불어 손으로 터뜨리게 한다</li>
+            <li>"팡!", "크다/작다" 하며 묘사한다</li>
+            <li>아이가 직접 불도록 연습시킨다</li>
+            <li>"몇 개야?" 하며 수 개념도 연결</li>
+          </ul>
+          <div class="effect-note">입술/호흡 근육 발달(발음 준비), 어휘, 대근육(뛰며 잡기)</div>
+        </div>
+      </div>
+
+      <div class="play-card cognitive">
+        <div class="play-card-header">
+          <h3>색깔 분류 & 수 세기 <span class="play-tag cognitive">인지</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 색깔 컵/상자, 색깔 블록</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>빨강, 파랑, 노랑 상자를 준비한다</li>
+            <li>같은 색 블록을 같은 색 상자에 넣게 한다</li>
+            <li>"빨간 거 어디?" 하며 함께 분류한다</li>
+            <li>넣으면서 "하나, 둘, 셋" 함께 센다</li>
+          </ul>
+          <div class="effect-note">색상 인지, 분류 능력, 수 개념, 언어(색 이름)</div>
+        </div>
+      </div>
+
+      <div class="play-card social">
+        <div class="play-card-header">
+          <h3>요리사 역할 놀이 <span class="play-tag social">사회성</span> <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 장난감 주방 세트 또는 밀가루 반죽</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>"엄마한테 뭐 만들어줄 거야?" 라고 묻는다</li>
+            <li>아이가 만들면 맛있는 척 먹어준다</li>
+            <li>"맛있다! 뭐가 들었어?" 처럼 대화를 이어간다</li>
+          </ul>
+          <div class="effect-note">언어 발달(대화 확장), 상징적 사고, 사회적 상호작용</div>
+        </div>
+      </div>
+
+      <div class="play-card motor">
+        <div class="play-card-header">
+          <h3>스티커 & 끼적이기 <span class="play-tag motor">소근육</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 도화지, 크레용, 스티커</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>큰 종이에 자유롭게 그리게 한다</li>
+            <li>스티커를 여러 곳에 붙이게 한다</li>
+            <li>"뭐 그렸어?", "무슨 색이야?" 대화를 나눈다</li>
+          </ul>
+          <div class="effect-note">소근육, 창의성, 자기 표현, 집중력</div>
+        </div>
+      </div>
+
+      <div class="play-card language">
+        <div class="play-card-header">
+          <h3>일상 언어 중계 <span class="play-tag language">언어</span></h3>
+        </div>
+        <div class="play-card-body">
+          <p class="tools-note">준비물: 없음</p>
+          <div class="play-section-title">놀이 방법</div>
+          <ul class="steps">
+            <li>일상 중 하는 모든 것을 말로 표현한다</li>
+            <li>"사과를 씻고 있어, 물이 차갑다!" 식으로 중계</li>
+            <li>아이의 말을 자르지 않고 끝까지 듣고 확장해 반응</li>
+          </ul>
+          <div class="effect-note">어휘 폭발 직접 지원, 문장 구조 학습, 상황-언어 연결</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 놀이 꿀팁 ==================== -->
+  <div class="age-section" id="play-tips">
+    <div class="age-header">
+      <span class="age-badge" style="background:var(--text);">꿀팁</span>
+      <h2>놀이 꿀팁 모음</h2>
+    </div>
+    <p class="age-meta">효과적인 아기 놀이를 위한 핵심 원칙</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3>&#x23F0; 놀이 시간 원칙</h3>
+        <ul>
+          <li>각 놀이는 아기 집중력에 맞게 <strong>5~10분</strong>씩</li>
+          <li>하루 여러 번 <strong>분산</strong>해서 진행</li>
+          <li>아기가 고개를 돌리거나 칭얼대면 즉시 중단</li>
+          <li><strong>같은 놀이 반복</strong>이 새 놀이보다 효과적</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F4AC; 언어 자극 원칙</h3>
+        <ul>
+          <li>어떤 놀이든 <strong>말로 이름 붙여주기</strong></li>
+          <li>아기의 옹알이를 <strong>진짜 대화처럼</strong> 반응하기</li>
+          <li>"이게 뭐야?" 보다 <strong>"무슨 색이야?"</strong> 열린 질문</li>
+          <li>아기가 말한 단어를 <strong>문장으로 확장</strong>해서 반복</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F6E1; 안전 수칙</h3>
+        <ul>
+          <li>모든 재료는 <strong>삼켜도 안전한 크기</strong>로</li>
+          <li>작은 조각, 날카로운 모서리 <strong>제거</strong></li>
+          <li>놀이 중 아기 곁에서 항상 <strong>감독</strong></li>
+          <li>풍선 놀이 시 터진 조각 <strong>즉시 치우기</strong></li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F4F1; 화면 노출 가이드</h3>
+        <ul>
+          <li>WHO 권장: <strong>18개월 이전</strong> 화면 노출 최소화</li>
+          <li>18~24개월: 하루 <strong>30분 이내</strong>, 부모와 함께</li>
+          <li>TV/스마트폰 대신 <strong>실물 놀이</strong>가 발달에 훨씬 효과적</li>
+          <li>식사 시간에는 <strong>화면 끄기</strong></li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x2764; 부모의 자세</h3>
+        <ul>
+          <li><strong>결과보다 과정</strong>에 집중하기</li>
+          <li>놀이를 <strong>강요하지 않기</strong> - 아기 주도로</li>
+          <li>비교하지 말고 <strong>아기만의 속도</strong> 존중</li>
+          <li>하루 <strong>30분 집중 놀이</strong>만으로도 충분한 효과</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h3>&#x1F3E0; 집에서 쉽게 만드는 장난감</h3>
+        <ul>
+          <li><strong>빈 페트병</strong> + 쌀/콩 = 소리 나는 딸랑이</li>
+          <li><strong>박스</strong> + 구멍 = 공 넣기 장난감</li>
+          <li><strong>종이컵</strong> 쌓기 = 무한 블록</li>
+          <li><strong>양말 인형</strong> = 역할놀이 친구</li>
+          <li><strong>냄비 + 숟가락</strong> = 드럼 세트</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>본 놀이 가이드는 일반적인 발달 기준이며, 아기마다 발달 속도가 다를 수 있습니다.</p>
+  <p>발달이 걱정되면 소아청소년과 전문의와 상담하세요.</p>
+  <p style="margin-top:12px;">
+    <a href="index.html">&larr; 월령별 육아 가이드로 돌아가기</a>
+  </p>
+  <p style="margin-top:8px;">
+    참고:
+    <a href="https://community.mmtalk.kr/community/article/832754" target="_blank">마미톡</a> |
+    <a href="https://www.ibabynews.com/news/articleView.html?idxno=71988" target="_blank">베이비뉴스</a> |
+    <a href="https://www.maeili.com" target="_blank">매일아이</a> |
+    <a href="https://www.chaisplay.com" target="_blank">차이의 놀이</a>
+  </p>
+</div>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('.age-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
